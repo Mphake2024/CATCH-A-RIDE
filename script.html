@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch-a-ride - Transforming Mobility in Lesotho</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset & Typography */
+        :root {
+            --primary-color: #007bff; /* Blue for trust/reliability */
+            --secondary-color: #28a745; /* Green for eco-friendliness/growth */
+            --accent-color: #ffc107; /* Yellow for vibrancy/attention */
+            --dark-text: #333;
+            --light-text: #f8f9fa;
+            --background-light: #ffffff;
+            --background-dark: #f0f2f5;
+            --border-color: #dee2e6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--background-light);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        h1 { font-size: 2.8rem; }
+        h2 { font-size: 2.2rem; }
+        h3 { font-size: 1.8rem; }
+        p { margin-bottom: 1rem; }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--light-text);
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+            text-decoration: none;
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background: #218838;
+        }
+
+        /* Header & Navigation */
+        .header {
+            background: var(--background-light);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links a {
+            color: var(--dark-text);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .menu-toggle span {
+            height: 3px;
+            width: 25px;
+            background: var(--dark-text);
+            margin-bottom: 4px;
+            border-radius: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://via.placeholder.com/1920x1080/007bff/ffffff?text=Lesotho+Transportation') no-repeat center center/cover; /* Placeholder image */
+            color: var(--light-text);
+            text-align: center;
+            padding: 100px 20px;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero .btn {
+            margin: 0 10px;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        section:nth-of-type(even) {
+            background-color: var(--background-dark);
+        }
+
+        section h2 {
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            text-align: left;
+        }
+
+        .about-text, .about-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .feature-box {
+            background: var(--background-light);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-box ul li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .feature-box ul li::before {
+            content: '✓';
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+        }
+
+        /* How It Works Section */
+        .how-it-works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 3rem;
+        }
+
+        .step-box {
+            background: var(--background-light);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .step-box .step-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .step-box h3 {
+            margin-bottom: 0.8rem;
+        }
+
+        /* Impact Section */
+        .impact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Driver CTA Section */
+        .driver-cta {
+            background: var(--primary-color);
+            color: var(--light-text);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .driver-cta h2 {
+            color: var(--light-text);
+        }
+        .driver-cta h2::after {
+            background: var(--light-text);
+        }
+
+        .driver-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Download App Section */
+        .download-app-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .app-store-btn {
+            display: flex;
+            align-items: center;
+            background: var(--dark-text);
+            color: var(--light-text);
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            text-decoration: none;
+        }
+
+        .app-store-btn:hover {
+            background: #555;
+        }
+
+        .app-store-btn svg {
+            margin-right: 10px;
+            fill: var(--light-text);
+        }
+
+        .qr-code-placeholder {
+            width: 150px;
+            height: 150px;
+            background: var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        /* Contact Section */
+        .contact-form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--background-light);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: var(--dark-text);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-text);
+            color: var(--light-text);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--light-text);
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                margin-top: 15px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero .btn {
+                display: block;
+                margin: 15px auto;
+                width: 80%;
+            }
+
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            h3 { font-size: 1.5rem; }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .about-content, .features-grid, .how-it-works-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-text, .about-image {
+                min-width: unset;
+            }
+
+            .download-app-content {
+                flex-direction: column;
+            }
+
+            .app-store-btn {
+                width: 80%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 0.9rem;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            .app-store-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Catch-a-ride</a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#impact">Our Impact</a></li>
+                    <li><a href="#drivers">Drivers</a></li>
+                    <li><a href="#download">Download App</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Transforming Mobility in Lesotho with Catch-a-ride</h1>
+                <p>Your Safe, Reliable, and Affordable Ride & Parcel Delivery in Lesotho.</p>
+                <p>Connecting passengers and parcel deliveries with local drivers through a mobile app and SMS-based system, Catch-a-ride aims to provide a dependable, transparent and user-friendly service tailored to the unique needs of Basotho communities.</p>
+                <a href="#download" class="btn">Download the App</a>
+                <a href="#drivers" class="btn btn-secondary">Become a Driver</a>
+            </div>
+        </section>
+
+        <!-- About Catch-a-ride Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2>About Catch-a-ride</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Access to safe, reliable, and affordable transportation remains a persistent challenge in Lesotho, especially in urban centers like Maseru and remote rural areas. Public transport options are often inconsistent, informal, and lack digital integration, leaving passengers with limited choices and unpredictable travel experiences.</p>
+                        <p>Catch-a-ride is designed to transform how people move around Lesotho. We offer a dependable, transparent, and user-friendly ride-hailing service that not only addresses transportation inefficiencies but also creates new economic opportunities for drivers and small fleet owners.</p>
+                        <p>Our commitment is to the Basotho communities, providing a service that prioritizes safety, convenience, and affordability, while also contributing to a more sustainable urban environment.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://via.placeholder.com/600x400/28a745/ffffff?text=Catch-a-ride+App+Interface" alt="Catch-a-ride App Interface">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Catch-a-ride? (Features) Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Why Choose Catch-a-ride?</h2>
+                <p>Experience the future of transportation and delivery with unparalleled benefits.</p>
+                <div class="features-grid">
+                    <div class="feature-box">
+                        <h3>For Riders</h3>
+                        <ul>
+                            <li><strong>Convenience:</strong> On-demand flexibility, easy booking via app/SMS.</li>
+                            <li><strong>Safety:</strong> Real-time tracking, in-app safety alerts for peace of mind.</li>
+                            <li><strong>Affordability:</strong> Competitive pricing with promotional discounts for new users.</li>
+                            <li><strong>Reliability:</strong> Efficient ride matching and reduced wait times.</li>
+                            <li><strong>Eco-friendly:</strong> Green route options contributing to climate change mitigation.</li>
+                            <li><strong>Parcel Delivery:</strong> Secure and reliable handling of your parcels.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>For Drivers</h3>
+                        <ul>
+                            <li><strong>Economic Opportunity:</strong> Create new income streams and grow your business.</li>
+                            <li><strong>Flexibility:</strong> Work on your own schedule, anytime, anywhere.</li>
+                            <li><strong>Support:</strong> Dedicated in-app support for all your needs.</li>
+                            <li><strong>Advanced Technology:</strong> Smart algorithms for efficient routes and passenger matching.</li>
+                            <li><strong>Community:</strong> Be part of a growing network transforming Lesotho's mobility.</li>
+                            <li><strong>Fair Earnings:</strong> Competitive commission structure ensuring fair driver earnings.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="how-it-works">
+            <div class="container">
+                <h2>How It Works</h2>
+                <p>Getting started with Catch-a-ride is simple and straightforward.</p>
+                <div class="how-it-works-grid">
+                    <div class="step-box">
+                        <span class="step-number">1</span>
+                        <h3>For Riders: Request a Ride</h3>
+                        <p>Download the Catch-a-ride app (or use our SMS service for basic booking). Enter your destination and request a ride or parcel delivery instantly.</p>
+                    </div>
+                    <div class="step-box">
+                        <span class="step-number">2</span>
+                        <h3>For Riders: Track & Travel</h3>
+                        <p>Track your driver's arrival in real-time. Enjoy a safe, comfortable, and efficient journey to your destination or watch your parcel reach its recipient.</p>
+                    </div>
+                    <div class="step-box">
+                        <span class="step-number">3</span>
+                        <h3>For Riders: Pay & Rate</h3>
+                        <p>Pay securely through the app. After your trip, rate your driver and provide feedback to help us maintain high-quality service.</p>
+                    </div>
+                    <div class="step-box">
+                        <span class="step-number">1</span>
+                        <h3>For Drivers: Sign Up & Go Online</h3>
+                        <p>Register as a Catch-a-ride driver. Once approved, simply go online in the app to start receiving ride or parcel delivery requests.</p>
+                    </div>
+                    <div class="step-box">
+                        <span class="step-number">2</span>
+                        <h3>For Drivers: Accept & Navigate</h3>
+                        <p>Accept nearby requests. Our smart routing guides you to your passenger/parcel and then efficiently to their destination.</p>
+                    </div>
+                    <div class="step-box">
+                        <span class="step-number">3</span>
+                        <h3>For Drivers: Earn & Grow</h3>
+                        <p>Complete trips and deliveries, earning income with every successful journey. Grow your business with a reliable platform.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Impact Section -->
+        <section id="impact" class="impact">
+            <div class="container">
+                <h2>Our Impact</h2>
+                <div class="impact-content">
+                    <p>Catch-a-ride is more than just a transportation app; it's a catalyst for positive change in Lesotho. By promoting shared mobility, we actively contribute to reducing traffic congestion and lowering greenhouse gas emissions, fostering cleaner urban environments.</p>
+                    <p>We're committed to providing accessible and affordable transport solutions, bridging the gap between urban centers and rural communities. This not only enhances user satisfaction but also empowers local individuals by creating vital economic opportunities for drivers and small fleet owners, strengthening the local economy.</p>
+                    <p>Our vision is to build a sustainable and thriving mobility ecosystem that serves the unique needs of Basotho, ensuring everyone has access to safe, reliable, and respectful transportation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Our Community (Driver CTA) Section -->
+        <section id="drivers" class="driver-cta">
+            <div class="container">
+                <h2>Drive with Catch-a-ride and Earn More</h2>
+                <p>Join our growing community of trusted drivers and unlock new earning potential. Enjoy flexible hours, reliable support, and be part of transforming mobility in Lesotho.</p>
+                <a href="#" class="btn btn-secondary">Learn More & Sign Up</a>
+            </div>
+        </section>
+
+        <!-- Download the App Section -->
+        <section id="download" class="download-app">
+            <div class="container">
+                <h2>Get the Catch-a-ride App Today!</h2>
+                <p>Download our app from your preferred store and start your journey with us.</p>
+                <div class="download-app-content">
+                    <a href="#" class="app-store-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.921 17.922l-3.275-3.275 1.414-1.414 1.861 1.861 3.275-3.275 1.414 1.414-4.689 4.689z"/></svg>
+                        Download on the App Store
+                    </a>
+                    <a href="#" class="app-store-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.921 17.922l-3.275-3.275 1.414-1.414 1.861 1.861 3.275-3.275 1.414 1.414-4.689 4.689z"/></svg>
+                        Get it on Google Play
+                    </a>
+                    <div class="qr-code-placeholder">
+                        QR Code <br> Coming Soon
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <p>Have questions or need support? Reach out to us!</p>
+                <div class="contact-form-container">
+                    <form class="contact-form" id="contactForm">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" required></textarea>
+
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                    <div class="contact-info">
+                        <p>For support, email us at: <a href="mailto:support@catcharide.co.ls">support@catcharide.co.ls</a></p>
+                        <p>Follow us on social media:</p>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.908c0-.817.092-1.192 1.173-1.192h2.827v-5h-3.999c-3.12 0-4.001 1.359-4.001 4.757v2.243z"/></svg></a>
+                            <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.204-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069-3.204 0-3.584-.012-4.849-.069-3.251-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.849 0-3.204.012-3.584.069-4.849 1.66-3.225 1.691-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.073 4.948.073 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                            <a href="#" aria-label="TikTok"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19.59 6.643c-.003 0-.003 0-.003 0-.003.001-.004.001-.004.001-.004.001-.004.001-.004.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001-.005.001
